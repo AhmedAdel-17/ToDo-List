@@ -1,0 +1,13 @@
+{
+    "login": "تسجيل الدخول",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "login_success_head": " تسجيل الدخول ",
+    "not_a_member_sign_up": "غير مسجل ؟ سجل الأن",
+    "login_failed": "فشل تسجيل الدخول",
+    "incorrect_password": "كلمة مرور غير صحيحة",
+    "incorrect_email": "البريد الالكتروني غير صحيح",
+    "login_success": "تم تسجيل الدخول بنجاح",
+    "please_enter_data": "برجاء ادخال البريد الاكتروني و كلمة السر",
+    "ok": "حسنا"
+}
