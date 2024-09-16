@@ -4,7 +4,7 @@ import colors from '../../utils/colors';
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: colors.newpurple,
+    backgroundColor: colors.purpleHaze,
   },
   container: {
     flex: 1,
@@ -16,14 +16,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   headerStyle: {
-    backgroundColor: colors.newpurple, // Customize header background color
+    backgroundColor: colors.purpleHaze, 
   },
   headerTitleStyle: {
-    fontSize: 24, // Customize the title font size
-    fontWeight: 'bold', // Make the title bold
-    color: colors.white, // Customize the text color
+    fontSize: 24, 
+    fontWeight: 'bold', 
+    color: colors.white, 
   },
-  headerTintColor:{color: colors.white}, // Tint color for back button and icons
+  headerTintColor:{color: colors.white}, 
 
 });
 

@@ -8,8 +8,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
-    borderTopLeftRadius: 50,
+    borderBottomRightRadius: 250,
+    borderTopLeftRadius: 450,
     borderTopRightRadius: 50,
   },
   avatar: {

@@ -1,10 +1,13 @@
-import React from 'react';
-import { View, Text, Switch, Alert } from 'react-native';
-import { I18nManager } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Switch, I18nManager } from 'react-native';
 import RNRestart from 'react-native-restart';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../features/tasks/store/store';
+import { setLanguage } from '../../features/tasks/redux/languageSlice';
 import colors from '../../utils/colors';
 import styles from './LanguageSwitcher.styles';
 import { useTranslation } from 'react-i18next';
+import Alert from '../Alert/Alert'; // Import the custom Alert component
 
 const LANGUAGES = {
   EN: 'en',
@@ -13,38 +16,39 @@ const LANGUAGES = {
 
 const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
+  const dispatch = useDispatch();
+  const currentLanguage = useSelector((state: RootState) => state.language.language);
+  
+  const [alertVisible, setAlertVisible] = useState(false);
 
   const toggleLanguage = async () => {
-    const newLanguage = i18n.language === LANGUAGES.EN ? LANGUAGES.AR : LANGUAGES.EN;
+    const newLanguage = currentLanguage === LANGUAGES.EN ? LANGUAGES.AR : LANGUAGES.EN;
     const isRTL = newLanguage === LANGUAGES.AR;
 
     try {
       if (I18nManager.isRTL !== isRTL) {
-        Alert.alert(
-          'Restart Required',
-          'The app needs to restart to apply the language change.',
-          [
-            {
-              text: 'Restart Now',
-              onPress: async () => {
-                try {
-                  await i18n.changeLanguage(newLanguage);
-                  I18nManager.forceRTL(isRTL);
-                  //RNRestart.Restart();
-                } catch (error) {
-                  console.error('Error changing language:', error);
-                  Alert.alert('Error', 'An error occurred while changing the language.');
-                }
-              },
-            },
-          ],
-        );
+        setAlertVisible(true); // Show the custom alert modal
       } else {
-        await i18n.changeLanguage(newLanguage);
+        await i18n.changeLanguage(newLanguage); // Update i18n language
+        dispatch(setLanguage(newLanguage)); // Update Redux language state
       }
     } catch (error) {
       console.error('Error toggling language:', error);
-      Alert.alert('Error', 'An error occurred while toggling the language.');
+    }
+  };
+
+  const handleAlertClose = async () => {
+    const newLanguage = currentLanguage === LANGUAGES.EN ? LANGUAGES.AR : LANGUAGES.EN;
+    const isRTL = newLanguage === LANGUAGES.AR;
+
+    try {
+      setAlertVisible(false);
+      await i18n.changeLanguage(newLanguage); // Update i18n language
+      I18nManager.forceRTL(isRTL);
+      dispatch(setLanguage(newLanguage)); // Update Redux language state
+      RNRestart.Restart(); // Restart the app after language change
+    } catch (error) {
+      console.error('Error changing language:', error);
     }
   };
 
@@ -54,10 +58,18 @@ const LanguageSwitcher: React.FC = () => {
         {i18n.language === LANGUAGES.EN ? 'English' : 'العربية'}
       </Text>
       <Switch
-        value={i18n.language === LANGUAGES.EN}
+        value={currentLanguage === LANGUAGES.EN}
         onValueChange={toggleLanguage}
         trackColor={{ true: colors.newpurple, false: colors.newpurple }}
         thumbColor={colors.white}
+      />
+
+      {/* Custom Alert Modal */}
+      <Alert
+        visible={alertVisible}
+        message="The app needs to restart to apply the language change."
+        onClose={handleAlertClose}
+        buttonText="Restart Now"
       />
     </View>
   );

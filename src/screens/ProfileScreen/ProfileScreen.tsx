@@ -55,7 +55,7 @@ const ProfileScreen: React.FC = () => {
         <ProfileItem icon="envelope" text={t("email")} subText={userInfo.email} />
         <ProfileItem icon="user" text={t("first_name")} subText={userInfo.firstName} />
         <ProfileItem icon="user" text={t("last_name")} subText={userInfo.lastName} />
-        <ProfileItem icon="birthday-cake" text={t("birthday")} subText={userInfo.birthDate} />
+        <ProfileItem icon="birthday-cake" text={t("birthdate")} subText={userInfo.birthDate} />
         <ProfileItem icon="check-circle" text={t("completed_tasks")} subText={completedTasks.toString()} />
         <ProfileItem icon="times-circle" text={t("uncompleted_tasks")} subText={uncompletedTasks.toString()} />
       </View>

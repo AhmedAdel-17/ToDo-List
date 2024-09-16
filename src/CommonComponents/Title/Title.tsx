@@ -10,10 +10,6 @@ const Title: React.FC<HeaderProps> = ({ title }) => {
     const { t } = useTranslation();
     return (
         <View style={styles.container}>
-            <Image
-            source={require('../../../assets/icons/Claudia-removebg-preview.png')}
-            style={{ width: 150, height: 150 }}
-            resizeMode= 'contain'/>
             <Text style={styles.title}>{t(title)}</Text>
         </View>
     );

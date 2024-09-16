@@ -3,14 +3,15 @@ import { View, FlatList } from 'react-native';
 import { firebase } from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '../../../App'; 
 import styles from './ToDo.styles';
 import LanguageSwitcher from '../../CommonComponents/LanguageSwitcher/LanguageSwitcher';
 import FilterButtons from './components/FilterButtons';
 import TaskInput from './components/TaskInput';
 import TaskItem from './components/TaskItem';
 import SearchBar from './components/SearchBar';
-import colors from '../../utils/colors';
+import LogoutButton from '../../CommonComponents/LogoutButton/LogoutButton'; 
 
 const ToDoScreen: React.FC = () => {
   const [newTask, setNewTask] = useState<string>('');
@@ -22,7 +23,21 @@ const ToDoScreen: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'completed' | 'uncompleted'>('all');
   const userId = auth().currentUser?.uid;
   const { t, i18n } = useTranslation();
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>(); 
+  const handleLogout = async () => {
+    try {
+      const currentUser = auth().currentUser;
+      if (currentUser) {
+        await auth().signOut();
+        navigation.navigate('Login'); 
+      } else {
+        console.warn('No user currently signed in.');
+      }
+    } catch (error) {
+      console.error('Error logging out: ', error);
+    }
+  };
+  
 
   useEffect(() => {
     if (userId) {
@@ -52,14 +67,13 @@ const ToDoScreen: React.FC = () => {
     filterTasks(search, selectedFilter);
   }, [tasks]);
 
-  // Update the header styles and title based on language
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: t('todo_head'),
-      headerStyle: styles.headerStyle, // Apply the header background style
-      headerTitleStyle: styles.headerTitleStyle, // Apply the title text style
-      headerTintColor: styles.headerTintColor, // Set the tint color of the header
-      headerTitleAlign: 'center', // Align the title in the center
+      headerTitle:t('todo_head'),
+      headerStyle: styles.headerStyle,
+      headerTitleStyle: styles.headerTitleStyle,
+      headerTintColor: styles.headerTintColor,
+      headerTitleAlign: 'center',
     });
   }, [i18n.language, navigation]);
 

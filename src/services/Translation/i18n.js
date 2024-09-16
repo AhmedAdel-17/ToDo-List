@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { getLocales } from 'react-native-localize';
 
+// Import your language JSON files
 import loginEn from './locales/en/login.json';
 import profileEn from './locales/en/profile.json';
 import signupEn from './locales/en/signup.json';
@@ -13,10 +14,11 @@ import signupAr from './locales/ar/signup.json';
 import todoAr from './locales/ar/todo.json';
 
 i18n
-  .use(initReactI18next) // Bind react-i18next to i18next
+  .use(initReactI18next) // Connects i18next to React
   .init({
-    lng: getLocales()[0].languageCode, // Automatically detect the language
-    fallbackLng: 'en', // Default language if not detected
+    compatibilityJSON: 'v3', // Ensure compatibility with JSON v3 for older versions
+    lng: getLocales()[0].languageCode, // Default language from device
+    fallbackLng: 'en', // Fallback language in case a translation is missing
     resources: {
       en: {
         translation: {
@@ -34,6 +36,9 @@ i18n
           ...todoAr,
         },
       },
+    },
+    interpolation: {
+      escapeValue: false, // React already escapes values to prevent XSS
     },
   });
 

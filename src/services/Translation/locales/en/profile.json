@@ -3,7 +3,7 @@
     "password": "Password",
     "first-name": "First Name",
     "last_name": "Last Name",
-    "birthday": "Birth Date",
+    "birthdate": "Birth Date",
     "uncompleted_tasks": "Uncompleted Tasks",
     "completed_tasks": "Completed Tasks",
     "Profile":"Profile"

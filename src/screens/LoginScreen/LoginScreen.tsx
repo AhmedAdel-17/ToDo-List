@@ -62,7 +62,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     setLoading(true);
     try {
       const userCredential = await auth().signInWithEmailAndPassword(email, password);
-      await AsyncStorage.setItem('userToken', userCredential.user.uid);
+      await AsyncStorage.setItem('userToken', userCredential.user.uid); // Store user token
       setAlertMessage(t('login_success'));
       setAlertVisible(true);
       setLoading(false);

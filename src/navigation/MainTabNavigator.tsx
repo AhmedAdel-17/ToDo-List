@@ -1,6 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ToDoScreen from '../screens/ToDoScreen/ToDoscreen'; 
+import { Button, Alert } from 'react-native';
+import auth from '@react-native-firebase/auth';
+import ToDoScreen from '../screens/ToDoScreen/ToDoscreen';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import colors from '../utils/colors';
@@ -11,7 +13,6 @@ const Tab = createBottomTabNavigator();
 const MainTabNavigator: React.FC = () => {
   const { t } = useTranslation();
 
-  // Mapping object for route names to icons
   const getIconName = (routeName: string): string => {
     switch (routeName) {
       case 'ToDoScreen':
@@ -19,7 +20,7 @@ const MainTabNavigator: React.FC = () => {
       case 'ProfileScreen':
         return 'person-circle-outline';
       default:
-        return 'circle'; // default icon
+        return 'help-circle-outline';
     }
   };
 
@@ -37,12 +38,18 @@ const MainTabNavigator: React.FC = () => {
       <Tab.Screen
         name="ToDoScreen"
         component={ToDoScreen}
-        options={{ tabBarLabel: t('todo') }}
+        options={{
+          tabBarLabel: t('todo'),
+          headerShown: true,
+        }}
       />
       <Tab.Screen
         name="ProfileScreen"
         component={ProfileScreen}
-        options={{ tabBarLabel: t('profile') }}
+        options={{
+          tabBarLabel: t('profile'),
+          headerShown: true,
+        }}
       />
     </Tab.Navigator>
   );
