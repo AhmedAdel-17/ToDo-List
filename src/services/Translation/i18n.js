@@ -5,17 +5,17 @@ import enTranslations from './locales/en.json';
 import arTranslations from './locales/ar.json';
 
 i18n
-  .use(initReactI18next) // Connects i18n instance to React
+  .use(initReactI18next) 
   .init({
     compatibilityJSON: 'v3',
-    lng: getLocales()[0].languageCode, // Set initial language
-    fallbackLng: 'en', // Fallback to English
+    lng: getLocales()[0].languageCode, 
+    fallbackLng: 'en', 
     resources: {
       en: { translation: enTranslations },
       ar: { translation: arTranslations },
     },
     interpolation: {
-      escapeValue: false, // React already escapes values
+      escapeValue: false, 
     },
   });
 

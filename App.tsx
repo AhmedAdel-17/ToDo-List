@@ -9,7 +9,7 @@ import LoginScreen from './src/screens/LoginScreen/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen/SignUpScreen';
 import HeaderStyles from './src/CommonComponents/Header/HeaderStyles';
 import colors from './src/utils/colors';
-import i18n from './src/services/Translation/i18n'; // Import i18n directly
+import i18n from './src/services/Translation/i18n';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -20,11 +20,10 @@ export type RootStackParamList = {
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppContent: React.FC = () => {
-  const isLoggedIn = useSelector((state: RootState) => !!state.auth.email); // Check if user is logged in
-  const currentLanguage = useSelector((state: RootState) => state.language.language); // Get current language from Redux
+  const isLoggedIn = useSelector((state: RootState) => !!state.auth.email); 
+  const currentLanguage = useSelector((state: RootState) => state.language.language);
 
   useEffect(() => {
-    // Update i18n language when Redux language changes
     if (i18n.language !== currentLanguage) {
       i18n.changeLanguage(currentLanguage);
     }
@@ -37,7 +36,7 @@ const AppContent: React.FC = () => {
           name="Login"
           component={LoginScreen}
           options={{
-            title: i18n.t('login'), // Access translation directly
+            title: i18n.t('login'), 
             headerStyle: HeaderStyles.headerStyle,
             headerTitleStyle: HeaderStyles.headerTitleStyle,
             headerTintColor: colors.white,
@@ -53,7 +52,7 @@ const AppContent: React.FC = () => {
           name="SignUp"
           component={SignUpScreen}
           options={{
-            title: i18n.t('signup'), // Access translation directly
+            title: i18n.t('signup'),
             headerStyle: HeaderStyles.headerStyle,
             headerTitleStyle: HeaderStyles.headerTitleStyle,
             headerTintColor: colors.white,

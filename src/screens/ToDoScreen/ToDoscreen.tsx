@@ -11,7 +11,6 @@ import FilterButtons from './components/FilterButtons';
 import TaskInput from './components/TaskInput';
 import TaskItem from './components/TaskItem';
 import SearchBar from './components/SearchBar';
-import LogoutButton from '../../CommonComponents/LogoutButton/LogoutButton'; 
 
 const ToDoScreen: React.FC = () => {
   const [newTask, setNewTask] = useState<string>('');
