@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text,ActivityIndicator } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { firebase } from '@react-native-firebase/firestore';
 import ProfileItem from './components/ProfileItem';
-import LanguageSwitch from '../../CommonComponents/LanguageSwitcher/LanguageSwitcher';
 import TopBar from './components/TopBar';
 import styles from './Profile.styles';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import colors from '../../utils/colors';
 
 const ProfileScreen: React.FC = () => {
   const [userInfo, setUserInfo] = useState<any>(null);
@@ -23,7 +23,7 @@ const ProfileScreen: React.FC = () => {
       if (userId) {
         const userDoc = await firebase.firestore().collection('users').doc(userId).get();
         setUserInfo(userDoc.data());
-
+        
         const tasksSnapshot = await firebase.firestore().collection('users').doc(userId).collection('tasks').get();
         const tasks = tasksSnapshot.docs.map(doc => doc.data());
         
@@ -38,26 +38,30 @@ const ProfileScreen: React.FC = () => {
   useEffect(() => {
     navigation.setOptions({
       headerTitle:t("Profile"),
-      headerStyle: styles.headerStyle, // Apply background style
-      headerTitleStyle: styles.headerTitleStyle, // Apply title text style
-      headerTintColor: styles.headerTintColor, // Apply tint color for icons
+      headerStyle: styles.headerStyle, 
+      headerTitleStyle: styles.headerTitleStyle, 
+      headerTintColor: styles.headerTintColor, 
       headerTitleAlign: 'center',
     });
   }, [i18n.language]);
 
-  if (!userInfo) return <Text>Loading...</Text>;
-
+  if (!userInfo) {
+    return (
+        <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color= {colors.brown} />
+        </View>
+    );
+}
   return (
     <View style={styles.rootContainer}>
       <TopBar profilePictureUrl={userInfo.profilePictureUrl} />
-      <LanguageSwitch />
       <View style={styles.container}>
-        <ProfileItem icon="envelope" text={t("email")} subText={userInfo.email} />
-        <ProfileItem icon="user" text={t("first_name")} subText={userInfo.firstName} />
-        <ProfileItem icon="user" text={t("last_name")} subText={userInfo.lastName} />
-        <ProfileItem icon="birthday-cake" text={t("birthdate")} subText={userInfo.birthDate} />
-        <ProfileItem icon="check-circle" text={t("completed_tasks")} subText={completedTasks.toString()} />
-        <ProfileItem icon="times-circle" text={t("uncompleted_tasks")} subText={uncompletedTasks.toString()} />
+        <ProfileItem icon="mail-outline" text={t("email")} subText={userInfo.email} />
+        <ProfileItem icon="person-outline" text={t("first_name")} subText={userInfo.firstName} />
+        <ProfileItem icon="person-outline" text={t("last_name")} subText={userInfo.lastName} />
+        <ProfileItem icon="balloon-outline" text={t("birthdate")} subText={userInfo.birthDate} />
+        <ProfileItem icon="checkmark-circle-outline" text={t("completed_tasks")} subText={completedTasks.toString()} />
+        <ProfileItem icon="close-circle-outline" text={t("uncompleted_tasks")} subText={uncompletedTasks.toString()} />
       </View>
     </View>
   );

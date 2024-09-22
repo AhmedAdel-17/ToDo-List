@@ -10,7 +10,7 @@ export default StyleSheet.create({
   },
   input: {
     flex: 1,
-    backgroundColor: colors.gray,
+    backgroundColor: colors.brownDark,
     color: colors.white,
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -19,7 +19,7 @@ export default StyleSheet.create({
   },
   addButton: {
     marginLeft: 10,
-    backgroundColor: colors.Ebony,
+    backgroundColor: colors.gray,
     padding: 12,
     borderRadius: 20,
     alignItems: 'center',

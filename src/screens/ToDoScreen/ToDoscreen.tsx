@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../App'; 
 import styles from './ToDo.styles';
-import LanguageSwitcher from '../../CommonComponents/LanguageSwitcher/LanguageSwitcher';
 import FilterButtons from './components/FilterButtons';
 import TaskInput from './components/TaskInput';
 import TaskItem from './components/TaskItem';
@@ -140,7 +139,6 @@ const ToDoScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <LanguageSwitcher />
       <FlatList
         data={filteredTasks}
         ListHeaderComponent={() => (

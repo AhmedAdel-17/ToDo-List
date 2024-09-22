@@ -12,14 +12,14 @@ export default StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 20,
-        backgroundColor: colors.charcoal,
+        backgroundColor: colors.brown,
     },
     filterButtonText: {
         color: colors.white,
         fontSize: 16,
     },
     selectedFilterButton: {
-        backgroundColor: colors.newpurple,
+        backgroundColor: colors.black,
     },
     selectedFilterButtonText: {
         color: colors.white,

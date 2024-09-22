@@ -3,7 +3,7 @@ import colors from '../../../utils/colors';
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.charcoal,
+    backgroundColor: colors.brownDark,
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: 'center',
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   secondaryButton: {
-    backgroundColor: colors.violet,
+    backgroundColor: colors.brownLight,
   },
 });
 export default styles;

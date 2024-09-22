@@ -3,7 +3,7 @@ import colors from '../../../utils/colors';
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.violet,
+    backgroundColor: colors.brownDark,
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: 'center',
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   buttonText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 18,
     fontWeight: 'bold',
   },

@@ -1,14 +1,19 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Button, Alert } from 'react-native';
-import auth from '@react-native-firebase/auth';
+import Icon from 'react-native-vector-icons/Ionicons';
 import ToDoScreen from '../screens/ToDoScreen/ToDoscreen';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
-import Icon from 'react-native-vector-icons/Ionicons';
+import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
 import colors from '../utils/colors';
 import { useTranslation } from 'react-i18next';
 
-const Tab = createBottomTabNavigator();
+export type RootTabParamList = {
+  ToDoScreen: undefined;
+  ProfileScreen: undefined;
+  SettingsScreen: undefined;
+};
+
+const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const MainTabNavigator: React.FC = () => {
   const { t } = useTranslation();
@@ -16,9 +21,11 @@ const MainTabNavigator: React.FC = () => {
   const getIconName = (routeName: string): string => {
     switch (routeName) {
       case 'ToDoScreen':
-        return 'home';
+        return 'home-outline';
       case 'ProfileScreen':
-        return 'person-circle-outline';
+        return 'person-outline';
+      case 'SettingsScreen':
+        return 'settings-outline';
       default:
         return 'help-circle-outline';
     }
@@ -31,8 +38,8 @@ const MainTabNavigator: React.FC = () => {
           const iconName = getIconName(route.name);
           return <Icon name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: colors.newpurple,
-        tabBarInactiveTintColor: colors.charcoal,
+        tabBarActiveTintColor: colors.black,
+        tabBarInactiveTintColor: colors.silver,
       })}
     >
       <Tab.Screen
@@ -40,7 +47,7 @@ const MainTabNavigator: React.FC = () => {
         component={ToDoScreen}
         options={{
           tabBarLabel: t('todo'),
-          headerShown: true,
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -48,7 +55,15 @@ const MainTabNavigator: React.FC = () => {
         component={ProfileScreen}
         options={{
           tabBarLabel: t('profile'),
-          headerShown: true,
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="SettingsScreen"
+        component={SettingsScreen}
+        options={{
+          tabBarLabel: t('settings'),
+          headerShown: false,
         }}
       />
     </Tab.Navigator>

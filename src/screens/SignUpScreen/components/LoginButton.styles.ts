@@ -3,7 +3,7 @@ import colors from '../../../utils/colors';
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.charcoal,
+    backgroundColor: colors.brownLight,
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: 'center',
@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   buttonText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 18,
     fontWeight: 'bold',
   },
   secondaryButton: {
-    backgroundColor: colors.charcoal, // Ensure to add a color for the secondary button
+    backgroundColor: colors.brownLight, // Ensure to add a color for the secondary button
   },
 });
 

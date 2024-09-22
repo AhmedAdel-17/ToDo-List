@@ -7,7 +7,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: colors.violet,
+    backgroundColor: colors.brownLight,
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 20,

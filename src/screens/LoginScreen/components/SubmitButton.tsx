@@ -16,7 +16,7 @@ const SubmitButton: React.FC<Props> = ({ onPress, title, isLoading = false, seco
       onPress={onPress}
       disabled={isLoading}
     >
-      {isLoading ? <ActivityIndicator color={colors.violet} /> : <Text style={styles.buttonText}>{title}</Text>}
+      {isLoading ? <ActivityIndicator color={colors.white} /> : <Text style={styles.buttonText}>{title}</Text>}
     </TouchableOpacity>
   );
 };

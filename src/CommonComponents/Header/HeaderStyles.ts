@@ -4,7 +4,7 @@ import colors from '../../utils/colors'; // Make sure you have your colors defin
 
 const HeaderStyles = StyleSheet.create({
   headerStyle: {
-    backgroundColor: colors.newpurple, // Header background color
+    backgroundColor: colors.brownDark, // Header background color
   },
   headerTitleStyle: {
     fontSize: 24, // Font size of title

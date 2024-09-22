@@ -29,5 +29,17 @@
     "search_tasks": "Search Tasks...",
     "new_task": "Add New Task",
     "todo": "To-Do",
-    "todo_head": "To-Do List"
+    "todo_head": "To-Do List",
+    "settings": "Settings",
+    "logout": "Logout",
+    "editInfo": "Edit Info",
+    "editFirstName": "Your new First Name",
+    "editLastName": "Your new Last Name",
+    "editEmail": "Your new Email",
+    "editBirthdate": "Your new Birth Date",
+    "editProfilePic": "Your new Profile Picture URL",
+    "editPassword": "Your new Password",
+    "back": "Back",
+    "save": "Save"
+
 }

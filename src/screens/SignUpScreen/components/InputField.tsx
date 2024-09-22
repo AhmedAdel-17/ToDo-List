@@ -7,12 +7,12 @@ interface InputFieldProps {
   value: string;
   onChangeText: (text: string) => void;
   secureTextEntry?: boolean;
-  error?: boolean; // Add an error prop to control styling when input is invalid
+  error?: boolean; 
 }
 
 const InputField: React.FC<InputFieldProps> = ({ placeholder, value, onChangeText, secureTextEntry = false, error = false }) => (
   <TextInput
-    style={[styles.input, error && styles.errorInput]} // Add error styling conditionally
+    style={[styles.input, error && styles.errorInput]} 
     placeholder={placeholder}
     value={value}
     onChangeText={onChangeText}

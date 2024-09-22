@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     alertBox: {
       width: 300,
       padding: 20,
-      backgroundColor: 'white',
+      backgroundColor: colors.white,
       borderRadius: 10,
       alignItems: 'center',
     },
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
       textAlign: 'center',
     },
     alertButton: {
-      backgroundColor: colors.newpurple,
+      backgroundColor: colors.brown,
       padding: 10,
       borderRadius: 5,
       width: 100, 
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     alertButtonText: {
-      color: 'white',
+      color: colors.white,
       fontSize: 16,
     },
   });

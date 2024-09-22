@@ -17,11 +17,9 @@ const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
   const currentLanguage = useSelector((state: RootState) => state.language.language);
-
   const toggleLanguage = async () => {
     const newLanguage = currentLanguage === LANGUAGES.EN ? LANGUAGES.AR : LANGUAGES.EN;
     const isRTL = newLanguage === LANGUAGES.AR;
-
     try {
       await i18n.changeLanguage(newLanguage);
       if (I18nManager.isRTL !== isRTL) {
@@ -33,16 +31,15 @@ const LanguageSwitcher: React.FC = () => {
       console.error('Error toggling language:', error);
     }
   };
-
   return (
-    <View style={styles.languageButton}>
-      <Text style={styles.languageButtonText}>
+    <View style= {styles.languageButton} >
+      <Text style= {styles.languageButtonText} >
         {i18n.language === LANGUAGES.EN ? 'English' : 'العربية'}
       </Text>
       <Switch
         value={currentLanguage === LANGUAGES.EN}
         onValueChange={toggleLanguage}
-        trackColor={{ true: colors.newpurple, false: colors.newpurple }}
+        trackColor={{ true: colors.silverLight, false: colors.silver }}
         thumbColor={colors.white}
       />
     </View>

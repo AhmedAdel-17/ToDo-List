@@ -6,10 +6,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
-    backgroundColor: colors.violet,
+    backgroundColor: colors.brownLight,
     padding: 10,
-    borderRadius: 15,
+    borderRadius: 20,
     width: '100%',
+    marginTop: 10,
   },
   icon: {
     marginRight: 10,
