@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { firebase } from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,7 @@ import FilterButtons from './components/FilterButtons';
 import TaskInput from './components/TaskInput';
 import TaskItem from './components/TaskItem';
 import SearchBar from './components/SearchBar';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ToDoScreen: React.FC = () => {
   const [newTask, setNewTask] = useState<string>('');
@@ -21,21 +22,8 @@ const ToDoScreen: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'completed' | 'uncompleted'>('all');
   const userId = auth().currentUser?.uid;
   const { t, i18n } = useTranslation();
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>(); 
-  const handleLogout = async () => {
-    try {
-      const currentUser = auth().currentUser;
-      if (currentUser) {
-        await auth().signOut();
-        navigation.navigate('Login'); 
-      } else {
-        console.warn('No user currently signed in.');
-      }
-    } catch (error) {
-      console.error('Error logging out: ', error);
-    }
-  };
-  
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (userId) {
@@ -67,13 +55,24 @@ const ToDoScreen: React.FC = () => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle:t('todo_head'),
+      headerTitle: t('todo_head'),
       headerStyle: styles.headerStyle,
       headerTitleStyle: styles.headerTitleStyle,
       headerTintColor: styles.headerTintColor,
       headerTitleAlign: 'center',
     });
   }, [i18n.language, navigation]);
+
+  useEffect(() => {
+    const backAction = () => {
+      Keyboard.dismiss();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => backHandler.remove();
+  }, []);
 
   const filterTasks = (searchTerm: string, filter: 'all' | 'completed' | 'uncompleted') => {
     let filtered = tasks;
@@ -138,33 +137,30 @@ const ToDoScreen: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={filteredTasks}
-        ListHeaderComponent={() => (
-          <>
-            <SearchBar 
-              search={search} 
-              setSearch={setSearch} 
-              filterTasks={filterTasks} 
-              selectedFilter={selectedFilter} 
+    <TouchableWithoutFeedback onPress={Keyboard.isVisible} accessible={false}>
+      <View style={styles.container}>
+        <SearchBar 
+          search={search} 
+          setSearch={setSearch} 
+          filterTasks={filterTasks} 
+          selectedFilter={selectedFilter} 
+        />
+        <FilterButtons selectedFilter={selectedFilter} onFilterPress={handleFilterPress} />
+        <FlatList
+          data={filteredTasks}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TaskItem
+              task={item}
+              toggleTaskCompletion={toggleTaskCompletion}
+              deleteTask={deleteTask}
             />
-            <FilterButtons selectedFilter={selectedFilter} onFilterPress={handleFilterPress} />
-          </>
-        )}
-        ListFooterComponent={() => (
-          <TaskInput newTask={newTask} setNewTask={setNewTask} addTask={addTask} />
-        )}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TaskItem
-            task={item}
-            toggleTaskCompletion={toggleTaskCompletion}
-            deleteTask={deleteTask}
-          />
-        )}
-      />
-    </View>
+          )}
+          keyboardShouldPersistTaps="handled"
+        />
+        <TaskInput newTask={newTask} setNewTask={setNewTask} addTask={addTask} />
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 

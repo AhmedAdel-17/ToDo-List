@@ -17,6 +17,10 @@ const colors = {
   black: '#000000',
   brownDark: '#6b5846',
   brownSugar: '	#77603d',
+  TrueTurquoise: '#5E3023',
+  Limestone: '#B1AA81',
+  CreamPop: '#F8E0C9',
+  CreamyBrown: '#C4AD9D'
 };
   export default colors;
   

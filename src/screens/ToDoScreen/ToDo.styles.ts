@@ -103,10 +103,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.newpurple,
   },
   headerTitleStyle: {
-    fontSize: 24, // Customize your title size
-    fontWeight: 'bold', // Make the title bold
-    color: colors.white, // Customize the text color
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: colors.white, 
   },
-  headerTintColor:{color: colors.white}, // Back button color and other icon colors
+  headerTintColor:{color: colors.white}, 
 });
 export default styles;

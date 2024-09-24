@@ -40,6 +40,7 @@ const MainTabNavigator: React.FC = () => {
         },
         tabBarActiveTintColor: colors.black,
         tabBarInactiveTintColor: colors.silver,
+        tabBarLabelPosition:'beside-icon'
       })}
     >
       <Tab.Screen
@@ -48,6 +49,7 @@ const MainTabNavigator: React.FC = () => {
         options={{
           tabBarLabel: t('todo'),
           headerShown: false,
+          
         }}
       />
       <Tab.Screen

@@ -24,7 +24,7 @@ const TaskInput: React.FC<TaskInputProps> = ({ newTask, setNewTask, addTask }) =
         value={newTask}
         onChangeText={setNewTask}
         keyboardAppearance='default'
-        keyboardType='email-address'
+        keyboardType='default'
       />
       <TouchableOpacity style={styles.addButton} onPress={addTask}>
         <Icon name="add" size={24} color={colors.white} />

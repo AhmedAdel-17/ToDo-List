@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, View } from 'react-native';
+import { TextInput, View, BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import styles from './SearchBar.style';
 import colors from '../../../utils/colors';
@@ -21,9 +21,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ search, setSearch, filterTasks, s
         placeholder={t('search_tasks')}
         placeholderTextColor={colors.white}
         value={search}
+        keyboardType='default'
+        keyboardAppearance='default'
         onChangeText={(text) => {
           setSearch(text);
           filterTasks(text, selectedFilter);
+          
         }}
       />
     </View>
