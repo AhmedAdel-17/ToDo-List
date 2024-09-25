@@ -4,7 +4,7 @@ import { firebase } from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../App'; 
+import { RootStackParamList } from '../../../App';
 import styles from './ToDo.styles';
 import InputBar from './components/InputBar';
 import FilterButtons from './components/FilterButtons';
@@ -151,28 +151,28 @@ const ToDoScreen: React.FC = () => {
               deleteTask={deleteTask}
             />
           )}
-          keyboardShouldPersistTaps="handled"
+          keyboardShouldPersistTaps='handled'
           ListHeaderComponent={(
             <>
-              <InputBar 
+              <InputBar
                 value={search}
                 onChangeText={setSearch}
-                placeholderKey= {t("search_tasks")}
-                isTaskInput={false} 
+                placeholderKey={t("search_tasks")}
+                isTaskInput={false}
               />
               <FilterButtons selectedFilter={selectedFilter} onFilterPress={handleFilterPress} />
             </>
           )}
-          ListFooterComponent={(
-            <InputBar
-              value={newTask}
-              onChangeText={setNewTask}
-              placeholderKey= {t("new_task")}
-              onSubmit={addTask}
-              isTaskInput={true}
-            />
-          )}
+
         />
+        <InputBar
+          value={newTask}
+          onChangeText={setNewTask}
+          placeholderKey={t("new_task")}
+          onSubmit={addTask}
+          isTaskInput={true}
+        />
+
       </View>
     </TouchableWithoutFeedback>
   );
