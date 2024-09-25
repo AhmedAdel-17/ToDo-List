@@ -15,9 +15,10 @@ interface EditFieldProps {
     icon: string;
     secure?: boolean;
     isEmail?: boolean;
+    header: string;
 }
 
-const EditField: React.FC<EditFieldProps> = ({ fieldKey, value, placeholder, icon, secure = false, isEmail = false }) => {
+const EditField: React.FC<EditFieldProps> = ({ fieldKey, value, placeholder, icon, secure = false, isEmail = false, header }) => {
     const [inputValue, setInputValue] = useState(value);
     const [isSaving, setIsSaving] = useState(false);
     const { i18n } = useTranslation();
@@ -30,7 +31,7 @@ const EditField: React.FC<EditFieldProps> = ({ fieldKey, value, placeholder, ico
             const updates = { [fieldKey]: inputValue };
 
             if (isEmail) {
-                await user.updateEmail(inputValue); // For email update
+                await user.updateEmail(inputValue);
             }
             await firestore().collection('users').doc(user.uid).update(updates);
         }
@@ -42,7 +43,7 @@ const EditField: React.FC<EditFieldProps> = ({ fieldKey, value, placeholder, ico
         <View style={styles.container}>
             <View style={styles.row}>
                 <Icon name={icon} type="font-awesome" color={colors.brown} />
-                <Text style={styles.label}>{placeholder}</Text>
+                <Text style={styles.label}>{header}</Text>
             </View>
             <TextInput
                 style={styles.input}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, FlatList, BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { firebase } from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
@@ -6,11 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../App'; 
 import styles from './ToDo.styles';
+import InputBar from './components/InputBar';
 import FilterButtons from './components/FilterButtons';
-import TaskInput from './components/TaskInput';
 import TaskItem from './components/TaskItem';
-import SearchBar from './components/SearchBar';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const ToDoScreen: React.FC = () => {
   const [newTask, setNewTask] = useState<string>('');
@@ -51,7 +50,7 @@ const ToDoScreen: React.FC = () => {
     setUncompletedTasks(uncompleted);
 
     filterTasks(search, selectedFilter);
-  }, [tasks]);
+  }, [tasks, search, selectedFilter]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -74,7 +73,7 @@ const ToDoScreen: React.FC = () => {
     return () => backHandler.remove();
   }, []);
 
-  const filterTasks = (searchTerm: string, filter: 'all' | 'completed' | 'uncompleted') => {
+  const filterTasks = useCallback((searchTerm: string, filter: 'all' | 'completed' | 'uncompleted') => {
     let filtered = tasks;
 
     if (filter === 'completed') {
@@ -90,14 +89,17 @@ const ToDoScreen: React.FC = () => {
     }
 
     setFilteredTasks(filtered);
-  };
+  }, [tasks, completedTasks, uncompletedTasks]);
 
-  const handleFilterPress = (filter: 'all' | 'completed' | 'uncompleted') => {
-    setSelectedFilter(filter);
-    filterTasks(search, filter);
-  };
+  const handleFilterPress = useCallback((filter: 'all' | 'completed' | 'uncompleted') => {
+    setSelectedFilter((prevFilter) => {
+      const newFilter = prevFilter === filter ? 'all' : filter;
+      filterTasks(search, newFilter);
+      return newFilter;
+    });
+  }, [filterTasks, search]);
 
-  const addTask = async () => {
+  const addTask = useCallback(async () => {
     if (newTask.trim() === '' || !userId) return;
 
     await firebase.firestore()
@@ -110,7 +112,7 @@ const ToDoScreen: React.FC = () => {
       });
 
     setNewTask('');
-  };
+  }, [newTask, userId]);
 
   const toggleTaskCompletion = async (taskId: string, isCompleted: boolean) => {
     if (!userId) return;
@@ -139,13 +141,6 @@ const ToDoScreen: React.FC = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.isVisible} accessible={false}>
       <View style={styles.container}>
-        <SearchBar 
-          search={search} 
-          setSearch={setSearch} 
-          filterTasks={filterTasks} 
-          selectedFilter={selectedFilter} 
-        />
-        <FilterButtons selectedFilter={selectedFilter} onFilterPress={handleFilterPress} />
         <FlatList
           data={filteredTasks}
           keyExtractor={(item) => item.id}
@@ -157,8 +152,27 @@ const ToDoScreen: React.FC = () => {
             />
           )}
           keyboardShouldPersistTaps="handled"
+          ListHeaderComponent={(
+            <>
+              <InputBar 
+                value={search}
+                onChangeText={setSearch}
+                placeholderKey= {t("search_tasks")}
+                isTaskInput={false} 
+              />
+              <FilterButtons selectedFilter={selectedFilter} onFilterPress={handleFilterPress} />
+            </>
+          )}
+          ListFooterComponent={(
+            <InputBar
+              value={newTask}
+              onChangeText={setNewTask}
+              placeholderKey= {t("new_task")}
+              onSubmit={addTask}
+              isTaskInput={true}
+            />
+          )}
         />
-        <TaskInput newTask={newTask} setNewTask={setNewTask} addTask={addTask} />
       </View>
     </TouchableWithoutFeedback>
   );

@@ -34,12 +34,12 @@ const EditInfoScreen: React.FC = () => {
       </TouchableOpacity>
 
       <ScrollView>
-        <EditField fieldKey="firstName" value="" placeholder={i18n.t('editFirstName')} icon="user" />
-        <EditField fieldKey="lastName" value="" placeholder={i18n.t('editLastName')} icon="user" />
-        <EditField fieldKey="email" value="" placeholder={i18n.t('editEmail')} icon="envelope" isEmail />
-        <EditField fieldKey="password" value="" placeholder={i18n.t('editPassword')} icon="lock" secure />
-        <EditField fieldKey="birthDate" value="" placeholder={i18n.t('editBirthdate')} icon="calendar" />
-        <EditField fieldKey="profilePictureUrl" value="" placeholder={i18n.t('editProfilePic')} icon="image" />
+        <EditField header = {i18n.t('first_name')} fieldKey="firstName" value="" placeholder={i18n.t('editFirstName')} icon="user" />
+        <EditField header = {i18n.t('last_name')} fieldKey="lastName" value="" placeholder={i18n.t('editLastName')} icon="user" />
+        <EditField header = {i18n.t('email')} fieldKey="email" value="" placeholder={i18n.t('editEmail')} icon="envelope" isEmail />
+        <EditField header = {i18n.t('password')} fieldKey="password" value="" placeholder={i18n.t('editPassword')} icon="lock" secure />
+        <EditField header = {i18n.t('birthdate')} fieldKey="birthDate" value="" placeholder={i18n.t('editBirthdate')} icon="calendar" />
+        <EditField header = {i18n.t('profile_picture')} fieldKey="profilePictureUrl" value="" placeholder={i18n.t('editProfilePic')} icon="image" />
       </ScrollView>
     </View>
   );

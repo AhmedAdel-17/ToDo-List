@@ -6,7 +6,7 @@ export default StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
+    margin: 10,
   },
   input: {
     flex: 1,
